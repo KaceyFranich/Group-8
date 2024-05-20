@@ -56,14 +56,6 @@ stock_name= "GOOG"
 title = (stock_name,"History stock performance till date")
 df_plot(df , x , y , title=title,xlabel='Date', ylabel='Price',dpi=100)
 
-
-# In[41]:
-
-
-# Data Processing and scaling
-df.drop(columns=['index','Dividends','Stock Splits']).head(2) # We are dropping un necessary columns from the set
-
-
 # In[45]:
 
 
