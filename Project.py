@@ -32,6 +32,12 @@ history = goog.history(period = '12mo')
 df = pd.DataFrame(history)
 df.head(10)
 
+#Alternative Way
+data = pd.DataFrame()
+data = yf.download('GOOG', period = '12mo')
+data['Date'] = pd.to_datetime(data.index) 
+data.reset_index(drop=True, inplace=True) 
+data.head(2)
 
 # In[14]:
 
