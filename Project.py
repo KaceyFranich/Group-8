@@ -72,8 +72,10 @@ df.describe()
 
 
 #Set the x and y for the regression
+df['Close_lag']= df['Close'].shift(-1)
+df = drop.na()
 x = df[['Open','High','Low','Volume']]
-y = df['Close']
+y = df['Close_lag']
 #Split the data into training and test datasets with a test size of 20% of the total dataset.
 train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.2, shuffle=False,random_state = 0)
 
