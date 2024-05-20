@@ -18,6 +18,8 @@ import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 import yfinance as yf
+import statsmodels.api as sm
+from sklearn.metrics import r2_score
 get_ipython().run_line_magic('matplotlib', 'inline')
 plt.style.use('fivethirtyeight')
 
@@ -93,6 +95,26 @@ print(test_y.shape)
 
 
 # In[ ]:
+#Fitting the model on train data
+train_x = sm.add_constant(train_x)
+test_x = sm.add_constant(test_x)
+results = sm.OLS(endog=train_y, exog=train_x).fit()
+results.summary()
+
+# In[ ]:
+
+predictions = results.predict(test_x)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
