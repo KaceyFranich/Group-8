@@ -38,7 +38,7 @@ df.head(10)
 df = pd.DataFrame()
 df = yf.download('GOOG', period = '12mo')
 df['Date'] = pd.to_datetime(df.index) 
-data.head(2)
+df.head()
 
 # In[14]:
 
