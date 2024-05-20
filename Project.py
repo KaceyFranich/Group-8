@@ -62,11 +62,7 @@ df_plot(df , x , y , title=title,xlabel='Date', ylabel='Price',dpi=100)
 
 
 # Data Processing and scaling
-df.reset_index(drop=True, inplace=True) # to reset index and convert it to column
-df.head(2)
-print(df.columns)
-#df.columns['Level_0','index','date','open','high','low','close','vol','divs','split']
-df.drop(columns=['index','level_0','Dividends','Stock Splits']).head(2) # We are dropping un necessary columns from the set
+df.drop(columns=['index','Dividends','Stock Splits']).head(2) # We are dropping un necessary columns from the set
 
 
 # In[45]:
