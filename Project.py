@@ -94,6 +94,16 @@ results.summary()
 predictions = results.predict(test_x)
 
 
+# Evaulating the accuracy of our model 
+r_squared=r2_score(test_y,predictions)
+mse=mean_squared_error(test_y, predictions)
+print(f'R-squared : {r_squared}')
+print(f'Mean Squared Error: {mse}')
+
+
+#Insight from the model's coefficients
+coefficients = pd.DataFrame({'Feature': train_x.columns, 'Coefficient': results.params})
+print(coefficients)
 
 
 
