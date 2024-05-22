@@ -17,6 +17,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 import yfinance as yf
 import statsmodels.api as sm
 from sklearn.metrics import r2_score
@@ -129,7 +130,48 @@ plt.legend()
 plt.show() 
 
 
+#------------TRYING TO IMPROVE THE MODEL W/ MORE PREDICTOR VARIABLES ---------------------------------------------
+# Load data
+stock_data = yf.download('GOOG', start='2023-01-01', end='2023-12-31')
 
+# Create lagged features
+lags = [1, 2, 3]
+for lag in lags:
+    stock_data[f'Open_Lag{lag}'] = stock_data['Open'].shift(lag)
+    stock_data[f'High_Lag{lag}'] = stock_data['High'].shift(lag)
+    stock_data[f'Low_Lag{lag}'] = stock_data['Low'].shift(lag)
+    stock_data[f'Close_Lag{lag}'] = stock_data['Close'].shift(lag)
+    stock_data[f'Volume_Lag{lag}'] = stock_data['Volume'].shift(lag)
+
+window_size = 5
+stock_data['SMA'] = stock_data['Close'].rolling(window=window_size).mean()
+stock_data['Close_lag']= stock_data['Close'].shift(-1)
+stock_data = stock_data.dropna()
+
+
+# Define feature columns and target
+feature_columns = [f'{col}_Lag{lag}' for col in ['Open', 'High', 'Low', 'Close', 'Volume'] for lag in lags]
+X = stock_data[feature_columns]
+y2 = stock_data['Close_lag']
+
+X_train, X_test, y2_train, y2_test = train_test_split(X, y2, shuffle=False, random_state = 0)
+
+
+model2 = LinearRegression()
+model2.fit(X_train, y2_train)
+
+y_pred = model2.predict(X_test)
+
+# Plot 
+dates2 = np.arange(62)
+plt.figure(figsize=(10, 6))
+plt.plot(dates2, y2_test, label='Actual')
+plt.plot(dates2, y_pred, label='Predicted', linestyle='--')
+plt.xlabel('Date')
+plt.ylabel('Stock Price')
+plt.title('Actual vs. Predicted Stock Prices')
+plt.legend()
+plt.show()
 
 
 
