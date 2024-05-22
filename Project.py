@@ -117,7 +117,16 @@ plt.title('Actual vs Predicted Closing Price')
 plt.legend()
 plt.show()
 
-
+# Plot residuals
+residuals = test_y - predictions
+plt.figure(figsize=(10, 6))
+plt.plot(test_y.index, residuals, label='Residuals')
+plt.axhline(y=0, color='r', linestyle='--')
+plt.xlabel('Test Dates')
+plt.ylabel('Residual')
+plt.title('Residuals of OLS Regression Model')
+plt.legend()
+plt.show() 
 
 
 
