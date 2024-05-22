@@ -107,6 +107,16 @@ print(coefficients)
 
 
 
+#Plot of regression model
+plt.figure(figsize=(10, 6))
+plt.plot(test_y.index, test_y, label='Actual Closing Price')
+plt.plot(test_x.index, predictions, label='Predicted Closing Price', linestyle = '--')
+plt.xlabel('Test Dates')
+plt.ylabel('Closing Price')
+plt.title('Actual vs Predicted Closing Price')
+plt.legend()
+plt.show()
+
 
 
 
